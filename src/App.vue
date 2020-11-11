@@ -1,9 +1,16 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <!-- <router-view/> -->
+    <keep-alive><router-view/></keep-alive>
+    <p>1</p>
+        <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+
+    <router-view/>
     <!-- <dropdown></dropdown> -->
-    <DropDown></DropDown>
+    <!-- <DropDown></DropDown> -->
     <!-- <HelloWorld></HelloWorld> -->
   </div>
 </template>
@@ -17,6 +24,8 @@ export default {
   components: {
     HelloWorld,
     DropDown
+  },
+  mounted() {
   }
 }
 </script>
@@ -29,5 +38,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+DropDown{
+  display: absolute;
+  top: 500px;
 }
 </style>

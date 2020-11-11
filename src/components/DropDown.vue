@@ -1,21 +1,26 @@
 <template>
-  <div>
-      <el-cascader
-        v-model="value"
-        size="small"
-        :options="options"
-        :props="{ expandTrigger: 'hover' }"
-        @change="handleChange"
-      >
-      </el-cascader>
+  <div class="dropdown">
+    <el-cascader
+      v-model="value"
+      :options="options"
+      :show-all-levels="false"
+      :placeholder="value[value.length - 1]"
+      :props="{ expandTrigger: ' hover', checkStrictly : true}"
+      @change="handleChange"
+    >
+    </el-cascader>
+    <input type="text" v-model="inputvalue" />
+    <!-- <img src="../../static/images/active.svg"> -->
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      value: [],
+      inputvalue: 0,
+      aaa: false,
       options: [
         {
           value: 'zhinan',
@@ -289,11 +294,115 @@ export default {
   methods: {
     handleChange(value) {
       console.log(value);
+      // this.$router.push('/')
     }
+  },
+  computed: {
+    value: {
+      get: function () {
+        console.log(this, mapState)
+        return this.$store.state.item
+      },
+      set: function (val) {
+        this.$store.state.item = val
+      }
+    }
+  },
+  mounted() {
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.el-input {
+  width: 150px;
+  height: 32px;
+  line-height: 32px;
+  .el-input__inner {
+    background-color: #141f26;
+    border: #43575d 1px solid;
+    border-radius: 0px;
+    width: 150px;
+    height: 32px;
+    color: #5ac8fa;
+    font-size: 18px;
+    padding-left: 12px;
+    padding-right: 32px;
+  }
+  .el-input__inner::-webkit-input-placeholder {
+    color: #5ac8fa;
+    font-size: 18px;
+  }
+  .el-input__suffix {
+    background-image: url(../../static/images/active.svg);
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    right: 0px;
+    top: 0px;
+    .el-input__suffix-inner {
+      display: none;
+    }
+  }
+}
 
+.el-cascader__dropdown {
+  // top: 86px !important;
+  background-color: rgba(7, 35, 50, 0.9);
+  border-radius: 0px;
+
+  &[x-placement^='bottom'] {
+    margin-top: -4px;
+  }
+  border: 0px;
+  .popper__arrow {
+    display: none;
+  }
+  .el-cascader-panel {
+    .el-cascader-menu {
+      border-right: 0px;
+      font-size: 16px;
+      color: white;
+      font-weight: normal;
+      ul {
+        padding: 0px;
+        .el-cascader-node:not(.is-disabled):focus,
+        .el-cascader-node:not(.is-disabled):hover {
+          background-color: unset;
+        }
+        li {
+
+          height: 40px;
+          .el-cascader-node__prefix {
+            display: none;
+          }
+          .el-cascader-node__label {
+            padding: 0;
+          }
+          &.is-active {
+            color: #2dc4f6;
+            font-weight: normal;
+          }
+          &:hover {
+            background-color: #284051 !important;
+            color: #2dc4f6;
+          }
+          &.in-active-path {
+            color: #2dc4f6;
+            font-weight: normal;
+          }
+          //           &:not(.is-disabled):focus{
+          //               background-color: rgba(60, 124, 158, 1);
+          //           }
+          // &:not(.is-disabled):hover {
+          //   background-color: #284051;
+          // }
+          i {
+            right: 30px;
+          }
+        }
+      }
+    }
+  }
+}
 </style>
